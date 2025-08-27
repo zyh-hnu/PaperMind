@@ -1,0 +1,22 @@
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.env
+.idea/
+
+# VSCode
+.vscode/
+
+# 数据库
+./db/
+
+# 其他
+.DS_Store
+*.swp

@@ -1,0 +1,8 @@
+streamlit √app.py
+langchain √splitter.py
+langchain-community √vector.py
+langchain-core
+chromadb √vector.py
+sentence-transformers √vector.py
+pymupdf √loader.py
+python-dotenv
