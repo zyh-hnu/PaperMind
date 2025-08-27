@@ -8,10 +8,18 @@
     4. 将后端返回的结果美观地展示在前端页面上。
 - **开发思路**: 让`app.py`保持“轻量”，它只做“传达”和“展示”的工作，不涉及复杂的业务逻辑。
 """
-# PaperMind/app.py
-
 import streamlit as st
+import time
+import logging
+from typing import Dict, Any, Optional
 from dotenv import load_dotenv
+
+# 配置日志
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 # 导入我们自己编写的核心逻辑模块
 from core import loader, splitter, vectorstore, chain

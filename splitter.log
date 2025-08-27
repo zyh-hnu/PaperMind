@@ -1,0 +1,33 @@
+2025-08-27 21:30:14,252 - INFO - --- 正在测试论文文本切分器 ---
+2025-08-27 21:30:14,255 - ERROR - 正则表达式错误: global flags not at the start of the expression at position 5
+2025-08-27 21:31:49,128 - INFO - --- 正在测试论文文本切分器 ---
+2025-08-27 21:31:49,129 - ERROR - 正则表达式错误: global flags not at the start of the expression at position 5
+2025-08-27 21:36:17,715 - INFO - --- 正在测试论文文本切分器 ---
+2025-08-27 21:36:17,717 - INFO - 文本切分完成，共生成 7 个文本块
+2025-08-27 21:36:17,717 - INFO - --- Chunk 1 (Length: 56) ---
+2025-08-27 21:36:17,717 - INFO - This is some introductory text before the first section.
+2025-08-27 21:36:17,718 - INFO - --------------------
+2025-08-27 21:36:17,718 - INFO - --- Chunk 2 (Length: 171) ---
+2025-08-27 21:36:17,718 - INFO - Abstract
+This paper presents PaperMind, a novel approach to intelligent document processing. Our system demonstrates superior performance on academic paper analysis tasks.
+2025-08-27 21:36:17,719 - INFO - --------------------
+2025-08-27 21:36:17,719 - INFO - --- Chunk 3 (Length: 399) ---
+2025-08-27 21:36:17,719 - INFO - The rapid growth of scientific literature presents significant challenges. This paper introduces PaperMind, an intelligent system designed to automatically process and analyze academic papers. Our con...
+2025-08-27 21:36:17,719 - INFO - --------------------
+2025-08-27 21:36:17,720 - INFO - --- Chunk 4 (Length: 262) ---
+2025-08-27 21:36:17,720 - INFO - tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit i...
+2025-08-27 21:36:17,720 - INFO - --------------------
+2025-08-27 21:36:17,721 - INFO - --- Chunk 5 (Length: 118) ---
+2025-08-27 21:36:17,721 - INFO - 2. Related Work
+Previous approaches to document processing have focused primarily on generic text analysis techniques.
+2025-08-27 21:36:17,721 - INFO - --------------------
+2025-08-27 21:36:17,721 - INFO - --- Chunk 6 (Length: 91) ---
+2025-08-27 21:36:17,722 - INFO - 2.1. Text Segmentation
+Traditional text segmentation approaches rely on fixed-size windows.
+2025-08-27 21:36:17,722 - INFO - --------------------
+2025-08-27 21:36:17,722 - INFO - --- Chunk 7 (Length: 134) ---
+2025-08-27 21:36:17,723 - INFO - 3. Conclusion
+This paper presented PaperMind, a comprehensive system. Future work will explore applications to broader document types.
+2025-08-27 21:36:17,723 - INFO - --------------------
+2025-08-27 21:36:17,723 - INFO - === 验证切分结果 ===
+2025-08-27 21:36:17,730 - ERROR - 未找到包含'1. Introduction'的块

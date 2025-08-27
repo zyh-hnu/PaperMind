@@ -1,45 +1,74 @@
-#负责加载和解析文档
 # PaperMind/core/loader.py
-"""
-- **`loader.py` - 加载器**
-    - **职责**: 从数据源读取信息。
-    - **核心函数**: `load_pdf_text(pdf_file)`，接收一个PDF文件对象，返回提取出的纯文本。
-"""
 
+"""
+PDF文档加载器模块 (v2.1 - Simplified & Robust)
+
+核心功能:
+- 从PDF文件对象中高效、准确地提取文本。
+- 自动将多页文本合并为一个字符串。
+- 提供简洁的错误处理。
+"""
 import fitz  # PyMuPDF
+import logging
 from typing import IO
+
+# 配置日志
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+class PDFLoadError(Exception):
+    """PDF加载过程中的自定义异常类"""
+    pass
 
 def load_pdf_text(pdf_file: IO[bytes]) -> str:
     """
-    从一个PDF文件对象中提取所有文本内容。
+    从一个二进制PDF文件对象中提取所有文本内容。
 
-    这个函数专门设计用于处理由Streamlit的file_uploader上传的文件对象，
-    这些对象是以二进制I/O流的形式存在的。
+    Args:
+        pdf_file (IO[bytes]): PDF文件对象, 例如由 st.file_uploader() 返回。
 
-    参数:
-        pdf_file (IO[bytes]): 一个二进制文件对象，例如由 st.file_uploader() 返回的对象。
-
-    返回:
+    Returns:
         str: 包含PDF所有页面文本的单个字符串。
 
-    异常:
-        - 如果文件不是一个有效的PDF或已损坏，PyMuPDF可能会抛出异常。
-          调用此函数的上层代码（如app.py）应该处理这些异常。
+    Raises:
+        PDFLoadError: 当文件为空、损坏或无法解析时。
     """
-    all_text = []
+    if not pdf_file:
+        raise ValueError("输入的pdf_file不能为空。")
+
     try:
-        # PyMuPDF可以直接从字节流中打开PDF文件
-        with fitz.open(stream=pdf_file.read(), filetype="pdf") as doc:
-            # 遍历PDF的每一页
-            for page in doc:
-                # 提取当前页的文本
-                all_text.append(page.get_text())
+        # PyMuPDF可以直接从内存中的字节流读取
+        doc = fitz.open(stream=pdf_file.read(), filetype="pdf")
         
-        # 将所有页面的文本合并成一个长字符串，用换行符分隔
-        return "\n".join(all_text)
-    
+        all_text = []
+        for page in doc:
+            all_text.append(page.get_text())
+            
+        full_text = "\n\n".join(all_text)
+
+        if not full_text.strip():
+            raise PDFLoadError("PDF文件中未找到可提取的文本内容。")
+        
+        logger.info(f"PDF加载成功: 共 {len(doc)} 页, 提取到 {len(full_text)} 个字符。")
+        return full_text
+
     except Exception as e:
-        # 如果在处理过程中发生任何错误，打印错误信息并返回一个空字符串
-        # 在实际应用中，这里应该使用更完善的日志记录
-        print(f"Error processing PDF file: {e}")
-        return ""
+        logger.error(f"处理PDF时发生错误: {e}")
+        raise PDFLoadError(f"无法处理该PDF文件。可能是文件已损坏或格式不受支持。错误详情: {e}")
+
+# --- 单元测试 ---
+if __name__ == '__main__':
+    # 为了测试，请在项目根目录创建一个 `papers` 文件夹，并放入一个 `sample.pdf` 文件。
+    import os
+    
+    test_pdf_path = os.path.join(os.path.dirname(__file__), '..', 'papers', 'sample.pdf')
+    
+    try:
+        logger.info(f"--- 正在测试PDF加载器 ---")
+        with open(test_pdf_path, 'rb') as f:
+            text = load_pdf_text(f)
+            logger.info(f"✅ PDF加载测试成功！预览: '{text[:200].replace(chr(10), ' ')}...'")
+    except FileNotFoundError:
+        logger.error(f"❌ 测试失败: 请确保测试文件存在于 {test_pdf_path}")
+    except PDFLoadError as e:
+        logger.error(f"❌ 测试失败: {e}")
