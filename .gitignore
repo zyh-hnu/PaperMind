@@ -14,8 +14,9 @@ venv/
 # VSCode
 .vscode/
 
-# 数据库
-./db/
+# 数据库以及基本知识库
+/db
+/papers
 
 # 其他
 .DS_Store

@@ -1,8 +1,19 @@
-streamlit √app.py
-langchain √splitter.py
-langchain-community √vector.py
-langchain-core
-chromadb √vector.py
-sentence-transformers √vector.py
-pymupdf √loader.py
+# 核心Web框架
+streamlit
+
+# 环境与配置管理
 python-dotenv
+
+# LangChain 核心与社区集成
+langchain
+langchain-core
+langchain-community
+
+# LangChain 特定模型集成
+langchain-google-genai    # 用于集成 Google Gemini
+langchain-huggingface     # 用于集成 HuggingFace 嵌入模型
+
+# AI 模型与数据处理
+sentence-transformers     # 提供文本嵌入模型 (Embedding)
+pymupdf                   # 高效的PDF文件解析库
+chromadb                  # 轻量级的本地向量数据库
