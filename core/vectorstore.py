@@ -96,34 +96,3 @@ def create_vectorstore(chunks: List[str],
 def get_retriever(vectorstore: FAISS, top_k: int = 4) -> BaseRetriever:
     logger.info(f"创建检索器，将返回 top {top_k} 个相关结果。")
     return vectorstore.as_retriever(search_kwargs={"k": top_k})
-
-# --- 单元测试 ---
-if __name__ == '__main__':
-    from splitter import split_text
-
-    sample_paper_text = ("Abstract: This paper introduces a novel method...\n" * 5 + 
-                         "1. Introduction: The field of NLP...\n" * 10 +
-                         "2. Methodology: We employed a technique...\n" * 15)
-    
-    logger.info("--- 步骤1: 切分文本 ---")
-    test_chunks = split_text(sample_paper_text, chunk_size=300)
-    logger.info(f"✅ 生成 {len(test_chunks)} 个文本块\n")
-
-    logger.info(f"--- 步骤2: 创建向量数据库 (使用设备: {DEFAULT_DEVICE}) ---")
-    try:
-        vs = create_vectorstore(test_chunks, model_name="BAAI/bge-small-zh-v1.5")
-        
-        logger.info("\n--- 步骤3: 测试检索 ---")
-        retriever = get_retriever(vs, top_k=2)
-        query = "What is the novel method?"
-        results = retriever.invoke(query)
-        
-        print("\n检索结果:")
-        for doc in results:
-            print(f"- {doc.page_content[:150]}...")
-            
-        logger.info("\n✅ 向量存储模块测试成功！")
-            
-    except Exception as e:
-        logger.error(f"❌ 测试运行失败: {e}")
-        logger.info("请确保已安装必要的依赖：pip install faiss-cpu sentence-transformers")

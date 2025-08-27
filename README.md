@@ -39,7 +39,7 @@
 | **前端**          | `Streamlit`                                      |
 | **AI / RAG 核心** | `LangChain`, `Google Gemini (gemini-1.0-pro)`    |
 | **嵌入模型**        | `Sentence-Transformers (BAAI/bge-large-zh-v1.5)` |
-| **向量数据库**       | `ChromaDB`                                       |
+| **向量数据库**       | `FAISS`                                       |
 | **数据处理**        | `PyMuPDF`                                        |
 
 ### 🏗️ 系统架构
