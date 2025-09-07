@@ -17,3 +17,5 @@ langchain-huggingface     # 用于集成 HuggingFace 嵌入模型
 sentence-transformers     # 提供文本嵌入模型 (Embedding)
 pymupdf                   # 高效的PDF文件解析库
 chromadb                  # 轻量级的本地向量数据库
+
+rank-bm25                 # 用于实现 BM25 文本检索算法

@@ -12,12 +12,16 @@ venv/
 .env
 .idea/
 
+*.log
+
 # VSCode
 .vscode/
 
 # 数据库以及基本知识库
 /db
 /papers
+/models
+/txt
 
 # 其他
 .DS_Store
